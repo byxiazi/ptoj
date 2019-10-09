@@ -1,0 +1,52 @@
+#!/usr/bin/env node
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var path = require("path");
+var fs = require("fs");
+var core_1 = require("./core/core");
+var transform_1 = require("./core/transform");
+var _ = require('lodash');
+var commander = require('commander');
+var mkdirp = require("mkdirp");
+var pkg = require(path.join('../package.json'));
+commander
+    .version(pkg.version)
+    .option('-o, --out-file <out>', 'Convert the input image to the name of output')
+    .option('-d, --out-dir <out>', 'Convert an input directory of modules to an output directory')
+    .option('-q, --quality <number>', 'specify the quality of image', parseFloat)
+    .usage('[options] <files ...>')
+    .parse(process.argv);
+var opts = {
+    outFile: commander.outFile,
+    outDir: commander.outDir,
+    quality: commander.quality,
+};
+core_1.default(commander.args, opts);
+var _filenames = core_1.flattenFilenames(commander.args);
+var defaultNames = core_1.defaultOutFile(_filenames);
+var quality = isNaN(opts.quality) ? undefined : opts.quality;
+_.each(_filenames, function (filename, index) {
+    var imgPath = path.isAbsolute(filename) ? filename : path.join(process.cwd(), filename);
+    var imageData = transform_1.default(imgPath, quality);
+    if (opts.outDir) {
+        var write = function (filename, data) {
+            var dest = core_1.filenameOfOutDir(opts.outDir, filename);
+            // const up = path.normalize(dest+'/..')
+            mkdirp.sync(opts.outDir);
+            var out = fs.createWriteStream(dest);
+            data.pipe(out);
+        };
+        write(filename, imageData);
+    }
+    else {
+        if (opts.outFile) {
+            var _filename = core_1.filenameOfOutFile(opts.outFile, index);
+            var out = fs.createWriteStream(_filename);
+            imageData.pipe(out);
+        }
+        else {
+            var out = fs.createWriteStream(defaultNames[index]);
+            imageData.pipe(out);
+        }
+    }
+});
