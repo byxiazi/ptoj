@@ -2,7 +2,12 @@
   "name": "ptoj",
   "version": "1.0.0",
   "description": "",
-  "keywords": [],
+  "keywords": [
+    "ptoj",
+    "png",
+    "jpeg",
+    "jpg"
+  ],
   "files": [
     "bin"
   ],
@@ -13,7 +18,7 @@
   },
   "license": "MIT",
   "engines": {
-    "node": ">=6.0.0"
+    "node": ">=8.0.0"
   },
   "scripts": {
     "lint": "tslint  --project tsconfig.json -t codeFrame 'src/**/*.ts' 'test/**/*.ts'",

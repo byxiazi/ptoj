@@ -29,3 +29,6 @@ Specified png images directory.
 
     $ ptoj old -d new
 
+### Env
+- platform - only test in Mac
+- node - >= 8
