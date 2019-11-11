@@ -7,8 +7,8 @@ var core_1 = require("./core/core");
 var transform_1 = require("./core/transform");
 var _ = require('lodash');
 var commander = require('commander');
-var mkdirp = require("mkdirp");
-var pkg = require(path.join('../package.json'));
+var mkdirp = require('mkdirp');
+var pkg = require('../package.json');
 commander
     .version(pkg.version)
     .option('-o, --out-file <out>', 'Convert the input image to the name of output')
@@ -19,7 +19,7 @@ commander
 var opts = {
     outFile: commander.outFile,
     outDir: commander.outDir,
-    quality: commander.quality,
+    quality: commander.quality
 };
 core_1.default(commander.args, opts);
 var _filenames = core_1.flattenFilenames(commander.args);

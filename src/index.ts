@@ -13,7 +13,7 @@ import transform from './core/transform'
 const _ = require('lodash')
 const commander = require('commander')
 const mkdirp = require('mkdirp')
-const pkg = require(path.join('../package.json'))
+const pkg = require('../package.json')
 
 commander
   .version(pkg.version)

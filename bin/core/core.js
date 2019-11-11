@@ -19,7 +19,7 @@ function errorHandler(filenames, opts) {
         errors.push("can't have --out-file and --out-dir");
     }
     if (errors.length > 0) {
-        console.error(errors.join(". "));
+        console.error(errors.join('. '));
         process.exit(2);
     }
 }
