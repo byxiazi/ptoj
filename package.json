@@ -24,7 +24,6 @@
     "lint": "tslint  --project tsconfig.json -t codeFrame 'src/**/*.ts' 'test/**/*.ts'",
     "prebuild": "rimraf bin",
     "build": "tsc --module commonjs --outDir bin && node ./scripts/jsToBin",
-    "start": "rollup -c rollup.config.ts -w",
     "test": "NODE_ENV=test jest --coverage",
     "test:watch": "jest --coverage --watch",
     "test:prod": "npm run lint && npm run test -- --no-cache",
